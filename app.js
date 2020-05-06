@@ -5,8 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+<<<<<<< HEAD
 var usersRouter = require('./routes/users');
 var cors = require("cors");
+=======
+//var usersRouter = require('./routes/users');
+
+>>>>>>> 5d37b7560dcf48f34822f523d397f7d8231ca39f
 
 var app = express();
 
@@ -22,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+require('./app/user.routes.js')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,8 +44,15 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+<<<<<<< HEAD
 //
 // const port = '5000';
 // app.listen(port);
+=======
+
+const port = process.env.PORT || 5000;
+
+app.listen(port);
+>>>>>>> 5d37b7560dcf48f34822f523d397f7d8231ca39f
 
 module.exports = app;
