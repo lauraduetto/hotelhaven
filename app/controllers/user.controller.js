@@ -44,3 +44,15 @@ exports.findAll = (req, res) => {
         else res.send(data);
       });
 };
+
+// Retrieve all users from the database.
+exports.findByZipAndCategory = (req, res) => {
+    User.findByZipAndCategory(req.params.category, req.params.zipcode, (err, data) => {
+        if (err)
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving users."
+          });
+        else res.send(data);
+      });
+};

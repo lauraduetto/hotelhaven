@@ -2,8 +2,8 @@ const sql = require("./db.js");
 
 // constructor
 const Donation = function(donation) {
-  this.request = donation.request;
-  this.donation = donation.donation;
+  this.user = donation.user;
+  this.amount = donation.amount;
 };
 
 Donation.create = (newDonation, result) => {

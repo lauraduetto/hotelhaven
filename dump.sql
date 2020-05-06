@@ -176,7 +176,7 @@ DROP TABLE IF EXISTS `donation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `donation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `request` int(11) NOT NULL,
+  `amount` double NOT NULL,
   `user` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user` (`user`),

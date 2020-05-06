@@ -26,6 +26,22 @@ User.getAll = result => {
     });
   };
 
+  User.findByZipAndCategory = (category, zip, result) => {
+      console.log(category);
+      console.log(zip);
+    sql.query(`SELECT * FROM user WHERE zipcode = ${zip} AND category = ${category}`, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log("user: ", res);
+      result(null, res);
+    });
+};
+
+
 User.create = (newUser, result) => {
   sql.query("INSERT INTO user SET ?", newUser, (err, res) => {
     if (err) {
