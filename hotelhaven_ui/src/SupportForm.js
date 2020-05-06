@@ -5,11 +5,36 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import './style.css'
 
+import axios from "axios";
+import qs from 'qs';
+import {BrowserRouter as Router, Redirect, Route, Link, useParams} from "react-router-dom";
+
 function handleSubmit(event) {
   alert('A name was submitted: ' + this.state.value);
   event.preventDefault();
 }
 
+const hotels = [
+  {
+    "hotelid": "ho1",
+    "name": "Hilton",
+    "email": "hoteltest1@gmail.com",
+    "password": "test1234",
+    "zipCode": "94112",
+    "numRoomsAvailable": "100",
+    "pricePerRoom": "30",
+    "website": "https://jsoneditoronline.org/"
+  }, {
+    "hotelid": "ho2",
+    "name": "SF Hotel",
+    "email": "hoteltest2@gmail.com",
+    "password": "test1234",
+    "zipCode": "94521",
+    "numRoomsAvailable": "100",
+    "pricePerRoom": "10",
+    "website": "https://jsoneditoronline.org/"
+  }
+];
 
 class SupportForm extends React.Component {
 
@@ -21,24 +46,73 @@ class SupportForm extends React.Component {
       zipCode: '',
       description: '',
       numNights: 2,
+      numGuests: 1,
       phonenumber: '',
       firstname: '',
       lastname: '',
-      reason: ''
+      reason: 'Essential Worker',
+      // redirecting information
+      formSubmitted: false,
+      redirectPath: '/user'
 
     };
   }
 
   handleChange = (event) => {
-
     const name = event.target.name;
-    console.log("name ", name);
     this.setState({[name]: event.target.value});
   }
 
   handleSubmit = (event) => {
-    console.log("state", this.state)
-    alert('submitting form...: ' + this.state);
+    // 1. match with a hotel.
+    var hotel = hotels.find(element => element.zipCode === this.state.zipCode);
+    let hotelId = hotel ? hotel.hotelid : '';
+    let {
+      email,
+      password,
+      zipCode,
+      description,
+      numNights,
+      phonenumber,
+      firstname,
+      lastname,
+      reason
+    } = this.state;
+    let body = qs.stringify({
+      email,
+      password,
+      zipCode,
+      description,
+      numNights,
+      phonenumber,
+      firstname,
+      lastname,
+      reason,
+      hotelId
+    })
+
+    // 2. call http post send the user to save
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    };
+    axios.post("http://localhost:4000/users", body, {headers}).then(res => {
+
+      // after a sucessfull save display the result of matching
+      if (hotel) {
+        alert('good news, there is a hotel willing to help nearby!');
+      } else {
+        alert('We are sorry, no hotels found near your location : ( + We will notify you once there is one');
+      }
+
+      // 3. set state variables to allow for redirect
+      const path = "/user/" + res.data.id;
+      this.setState({formSubmitted: true, redirectPath: path});
+
+    }).catch(error => {
+      console.log("oh no an error " + error);
+    });
+
     event.preventDefault();
   }
 
@@ -50,10 +124,10 @@ class SupportForm extends React.Component {
           <Form.Group controlId="formBasicName">
             <Row>
               <Col>
-                <Form.Control size="lg" type="text" placeholder="First name" value={this.state.firstname} name="email" onChange={this.handleChange}/>
+                <Form.Control size="lg" type="text" placeholder="First name" value={this.state.firstname} name="firstname" onChange={this.handleChange}/>
               </Col>
               <Col>
-                <Form.Control size="lg" type="text" placeholder="Last name" value={this.state.firstname} name="email" onChange={this.handleChange}/>
+                <Form.Control size="lg" type="text" placeholder="Last name" value={this.state.lastname} name="lastname" onChange={this.handleChange}/>
               </Col>
             </Row>
             <Form.Text className="text-muted">
@@ -99,7 +173,7 @@ class SupportForm extends React.Component {
               </Col>
               <Col>
                 <Form.Label>Number of Guests</Form.Label>
-                <Form.Control size="lg" as="select" type="number" value={this.state.numNights} name="numNights" onChange={this.handleChange}>
+                <Form.Control size="lg" as="select" type="number" value={this.state.numGuests} name="numGuests" onChange={this.handleChange}>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -144,8 +218,10 @@ class SupportForm extends React.Component {
   };
 
   render() {
-    return (
-    <div>
+    const redirect = this.state.formSubmitted ? <Redirect to={this.state.redirectPath}/> : null;
+    return (<div>
+      {redirect}
+      {this.state.formSubmitted}
       <div className="Layout">
         <h1>Get Support</h1>
         {this.form()}
