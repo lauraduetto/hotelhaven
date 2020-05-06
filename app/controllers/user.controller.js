@@ -14,7 +14,11 @@ exports.create = (req, res) => {
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone,
-        zipcode: request.body.zipcode
+        zipcode: req.body.zipcode,
+        category: req.body.category,
+        description: req.body.description,
+        nights: req.body.nights,
+        guests: req.body.guests
     });
 
     // Save Customer in the database

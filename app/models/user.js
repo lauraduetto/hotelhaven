@@ -7,6 +7,10 @@ const User = function(user) {
   this.password = user.password;
   this.zipcode = user.zipcode;
   this.phone = user.phone;
+  this.description = user.description;
+  this.category = user.category;
+  this.nights = user.nights;
+  this.guests = user.guests;
 };
 
 User.getAll = result => {

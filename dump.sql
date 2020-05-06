@@ -58,9 +58,10 @@ DROP TABLE IF EXISTS `donation`;
 CREATE TABLE `donation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `request` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `request` (`request`),
-  CONSTRAINT `donation_ibfk_1` FOREIGN KEY (`request`) REFERENCES `request` (`id`)
+  KEY `user` (`user`),
+  CONSTRAINT `donation_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -89,8 +90,9 @@ CREATE TABLE `hotel` (
   `zipcode` varchar(45) NOT NULL,
   `availablerooms` int(11) DEFAULT NULL,
   `pricepernight` double DEFAULT NULL,
+  `maxguests` int(11) DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +101,7 @@ CREATE TABLE `hotel` (
 
 LOCK TABLES `hotel` WRITE;
 /*!40000 ALTER TABLE `hotel` DISABLE KEYS */;
-INSERT INTO `hotel` VALUES (1,'Hotel Test','test@test.com','test','123 Main St, Anytown CA','94104',10,49);
+INSERT INTO `hotel` VALUES (1,'Hotel Test','test@test.com','test','123 Main St, Anytown CA','94104',10,49,2);
 /*!40000 ALTER TABLE `hotel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +117,7 @@ CREATE TABLE `request_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,9 +144,16 @@ CREATE TABLE `user` (
   `zipcode` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `nights` int(11) DEFAULT NULL,
+  `guests` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `category` (`category`),
+  CONSTRAINT `request_ibfk_1` FOREIGN KEY (`category`) REFERENCES `request_category` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,42 +162,36 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'mary','test','94104','555-5555','test@test.com');
+INSERT INTO `user` VALUES (1,'mary','test','94104','555-5555','test@test.com',1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',4,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
--- Table structure for table `request`
+-- Table structure for table `donation`
 --
 
-DROP TABLE IF EXISTS `request`;
+DROP TABLE IF EXISTS `donation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `request` (
+CREATE TABLE `donation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text DEFAULT NULL,
-  `user` int(11) DEFAULT NULL,
-  `category` int(11) DEFAULT NULL,
-  `nights` int(11) DEFAULT NULL,
+  `request` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `category` (`category`),
-  CONSTRAINT `request_ibfk_1` FOREIGN KEY (`category`) REFERENCES `request_category` (`id`),
   KEY `user` (`user`),
-  CONSTRAINT `request_ibfk_2` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  CONSTRAINT `donation_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `request`
+-- Dumping data for table `donation`
 --
 
-LOCK TABLES `request` WRITE;
-/*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` VALUES (1,'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',1,4);
-/*!40000 ALTER TABLE `request` ENABLE KEYS */;
+LOCK TABLES `donation` WRITE;
+/*!40000 ALTER TABLE `donation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `donation` ENABLE KEYS */;
 UNLOCK TABLES;
-
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
