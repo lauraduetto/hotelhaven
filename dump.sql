@@ -163,7 +163,7 @@ CREATE TABLE `user` (
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` VALUES (1,'Mary','test','94104','555-5555','test@test.com',1,'I am a nurse at a local hospital, I have three kids at home and a husband who is high risk for covid-19.   It would be a huge relief if I could find a place to stay where I am not putting my family at risk.',2,1);
-INSERT INTO `user` VALUES (2,'Jane','test','94104','555-5555','test@test.com',3,"i'm not sure what we are titling this category>  My at home situation is getting pretty bad due to being at home full time.   I am not feeling very safe.",4,2);
+INSERT INTO `user` VALUES (2,'Jane','test','94104','555-5555','test@test.com',3,"My at home situation is getting pretty bad due to being at home full time.   I am not feeling very safe.",4,2);
 INSERT INTO `user` VALUES (3,'Clare','test','94104','555-5555','test@test.com',2,'I am still required to be working outside of the home and being exposed to people in my community on a regular basis.  I have other family members at home that I do not want to expose to what I may bring home.',2,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
