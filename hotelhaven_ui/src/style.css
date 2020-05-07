@@ -1,8 +1,8 @@
 .panel {
     padding: 10%;
     margin: 3rem auto 6rem;
-    background-color: #4B0082;
-    color: white;
+    background-color: #fefae6;
+    color: #343a40;
 }
 
 
@@ -64,4 +64,8 @@
 
 .container {
    justify-content: space-evenly;
+}
+
+.jumbotron {
+  background-color: #fefae6;
 }

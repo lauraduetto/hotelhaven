@@ -14,10 +14,10 @@ class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: '',
-      zipCode: '',
+      username: '',
+      zipcode: '',
       description: '',
-      reason: 'efefefe'
+      category: '1'
     };
   }
 
@@ -26,13 +26,15 @@ class UserProfile extends React.Component {
   componentDidMount() {
     let id = this.props.match.params.id;
     console.log("match", this.props.match);
-    const url = "http://localhost:4000/users/" + id;
+    const url = "http://localhost:5000/user/" + id;
     console.log("ur", url);
     axios.get(url).then(res => {
       if (!res.data.empty) {
         console.log("setting the state")
         console.log(res)
-        this.setState({firstname: res.data.firstname, zipCode: res.data.zipCode, description: res.data.description, reason: res.data.reason});
+        console.log('********');
+        console.log(res.data.username);
+        this.setState({username: res.data.username, zipcode: res.data.zipcode, description: res.data.description, category: res.data.category});
       }
 
     }).catch(error => {
@@ -49,8 +51,8 @@ class UserProfile extends React.Component {
 
           <Card>
             <Card.Header as="h1" className="headings">
-              {this.state.firstname}
-              <h3>{this.state.reason}</h3>
+              {this.state.username}
+              <h3>{this.state.category}</h3>
             </Card.Header>
             <Card.Body>
               <Card.Title>About Me</Card.Title>
