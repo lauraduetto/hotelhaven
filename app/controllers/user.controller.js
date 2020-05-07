@@ -34,20 +34,8 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all users from the database.
-exports.findAll = (req, res) => {
-    User.getAll((err, data) => {
-        if (err)
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while retrieving users."
-          });
-        else res.send(data);
-      });
-};
-
-// Retrieve all users from the database.
 exports.findByZipAndCategory = (req, res) => {
-    User.findByZipAndCategory(req.params.category, req.params.zipcode, (err, data) => {
+    User.findByZipAndCategory(req.query.category, req.query.zipcode, (err, data) => {
         if (err)
           res.status(500).send({
             message:

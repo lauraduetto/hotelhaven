@@ -45,12 +45,11 @@ class SupportForm extends React.Component {
       password: '',
       zipCode: '',
       description: '',
-      numNights: 2,
-      numGuests: 1,
-      phonenumber: '',
-      firstname: '',
-      lastname: '',
-      reason: 'Essential Worker',
+      nights: 2,
+      guests: 1,
+      phone: '',
+      username: '',
+      category: 1,
       // redirecting information
       formSubmitted: false,
       redirectPath: '/user'
@@ -65,30 +64,30 @@ class SupportForm extends React.Component {
 
   handleSubmit = (event) => {
     // 1. match with a hotel.
-    var hotel = hotels.find(element => element.zipCode === this.state.zipCode);
+    var hotel = hotels.find(element => element.zipcode === this.state.zipcode);
     let hotelId = hotel ? hotel.hotelid : '';
     let {
       email,
       password,
-      zipCode,
+      zipcode,
       description,
-      numNights,
-      phonenumber,
-      firstname,
-      lastname,
-      reason
+      nights,
+      phone,
+      username,
+      category,
+      guests
     } = this.state;
     let body = qs.stringify({
       email,
       password,
-      zipCode,
+      zipcode,
       description,
-      numNights,
-      phonenumber,
-      firstname,
-      lastname,
-      reason,
-      hotelId
+      nights,
+      phone,
+      username,
+      category,
+      hotelId,
+      guests
     })
 
     // 2. call http post send the user to save
@@ -96,7 +95,7 @@ class SupportForm extends React.Component {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
     };
-    axios.post("http://localhost:4000/users", body, {headers}).then(res => {
+    axios.post("http://localhost:5000/user", body, {headers}).then(res => {
 
       // after a sucessfull save display the result of matching
       if (hotel) {
@@ -124,10 +123,7 @@ class SupportForm extends React.Component {
           <Form.Group controlId="formBasicName">
             <Row>
               <Col>
-                <Form.Control size="lg" type="text" placeholder="First name" value={this.state.firstname} name="firstname" onChange={this.handleChange}/>
-              </Col>
-              <Col>
-                <Form.Control size="lg" type="text" placeholder="Last name" value={this.state.lastname} name="lastname" onChange={this.handleChange}/>
+                <Form.Control size="lg" type="text" placeholder="User Name" value={this.state.username} name="username" onChange={this.handleChange}/>
               </Col>
             </Row>
             <Form.Text className="text-muted">
@@ -150,18 +146,18 @@ class SupportForm extends React.Component {
           </Form.Group>
 
           <Form.Group controlId="formBasic">
-            <Form.Control size="lg" type="text" placeholder="Enter Zip Code" value={this.state.zipCode} name="zipCode" onChange={this.handleChange}/>
+            <Form.Control size="lg" type="text" placeholder="Enter Zip Code" value={this.state.zipcode} name="zipcode" onChange={this.handleChange}/>
           </Form.Group>
 
           <Form.Group controlId="formBasic">
-            <Form.Control size="lg" type="text" placeholder="Phone Number" value={this.state.phonenumber} name="phonenumber" onChange={this.handleChange}/>
+            <Form.Control size="lg" type="text" placeholder="Phone Number" value={this.state.phone} name="phone" onChange={this.handleChange}/>
           </Form.Group>
 
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Row>
               <Col>
                 <Form.Label>Number of Nights Needed</Form.Label>
-                <Form.Control size="lg" as="select" type="number" value={this.state.numNights} name="numNights" onChange={this.handleChange}>
+                <Form.Control size="lg" as="select" type="number" value={this.state.nights} name="nights" onChange={this.handleChange}>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -173,7 +169,7 @@ class SupportForm extends React.Component {
               </Col>
               <Col>
                 <Form.Label>Number of Guests</Form.Label>
-                <Form.Control size="lg" as="select" type="number" value={this.state.numGuests} name="numGuests" onChange={this.handleChange}>
+                <Form.Control size="lg" as="select" type="number" value={this.state.guests} name="guests" onChange={this.handleChange}>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -190,10 +186,10 @@ class SupportForm extends React.Component {
           <Form.Group controlId="formBasic">
             <Form.Label>Category</Form.Label>
 
-            <Form.Control size="lg" as="select" type="string" value={this.state.reason} name="reason" onChange={this.handleChange}>
-              <option>Essential Worker</option>
-              <option>Quarantine</option>
-              <option>Safe Space</option>
+            <Form.Control size="lg" as="select" type="string" value={this.state.category} name="category" onChange={this.handleChange}>
+              <option value="1">Essential Worker</option>
+              <option value="2">Quarantine</option>
+              <option value="3">Safe Space</option>
             </Form.Control>
           </Form.Group>
 
