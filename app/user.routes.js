@@ -8,7 +8,7 @@ module.exports = app => {
     app.get("/user/:id", user.findById)
 
     // find by zip and category
-    app.get("/users/", user.findByZipAndCategory)
+    app.get("/users", user.findByZipAndCategory)
 
   
   };
