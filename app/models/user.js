@@ -27,7 +27,22 @@ User.getAll = result => {
   };
 
   User.findByZipAndCategory = (category, zip, result) => {
-    sql.query(`SELECT * FROM user WHERE zipcode = ${zip} AND category = ${category}`, (err, res) => {
+    
+    const params = [];
+    let query = 'SELECT * FROM user WHERE 1 = 1';
+    
+    if (category !== '0' && category) {
+        query += ' AND category = ?';
+        params.push(category);
+    }
+
+    if (zip) {
+        query += ' AND zipcode = ?';
+        params.push(zip);
+    }
+
+    console.log(query, params);
+    sql.query(query, params, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
