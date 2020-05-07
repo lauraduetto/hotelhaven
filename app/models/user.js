@@ -41,7 +41,6 @@ User.getAll = result => {
         params.push(zip);
     }
 
-    console.log(query, params);
     sql.query(query, params, (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -54,6 +53,19 @@ User.getAll = result => {
     });
 };
 
+User.findById = (id, result) => {
+    
+    sql.query("SELECT * FROM user WHERE id=?", id, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log("user: ", res);
+      result(null, res);
+    });
+};
 
 User.create = (newUser, result) => {
   sql.query("INSERT INTO user SET ?", newUser, (err, res) => {

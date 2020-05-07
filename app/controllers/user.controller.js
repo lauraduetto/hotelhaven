@@ -44,3 +44,15 @@ exports.findByZipAndCategory = (req, res) => {
         else res.send(data);
       });
 };
+
+// Retrieve user by id from the database.
+exports.findById = (req, res) => {
+    User.findById(req.params.id, (err, data) => {
+        if (err)
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving users."
+          });
+        else res.send(data);
+      });
+};
