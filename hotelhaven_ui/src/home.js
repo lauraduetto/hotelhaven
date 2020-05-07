@@ -2,22 +2,28 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Jumbotron} from 'react-bootstrap';
 import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-router-dom";
 import './style.css'
+//import logo from '../public/hotel-logo.png';
+import logo from '../public/Gift_A_Room.png';
 
 class Home extends React.Component {
 
   render() {
     return (<div>
       <Container className="space-evenly">
-        <div class="jumbotron">
+        <Jumbotron bsPrefix="jumbotron2">
+
+        <div className="headings">
+          <img src={logo} className="App-logo" alt="logo"/>
+        </div>
 
           <Row className="introbox">
             <div class="col-md-12">
               <div className="headings">
                 <h1>
-                  Hotel Haven</h1>
+                  Gift A Room</h1>
                 <h4 class="tagName">
                   Our Tag Line Under Here</h4>
               </div>
@@ -44,7 +50,7 @@ class Home extends React.Component {
 
             <Col sm="sm">
               <Link to="/user/register">
-                <div class="btn btn-primary btn-large homebtn" href="#">Find a Haven</div>
+                <div class="btn btn-primary btn-large homebtn" href="#">Find a Room</div>
               </Link>
             </Col>
 
@@ -74,7 +80,7 @@ class Home extends React.Component {
 
           </Row>
 
-        </div>
+        </Jumbotron>
       </Container>
 
     </div>)

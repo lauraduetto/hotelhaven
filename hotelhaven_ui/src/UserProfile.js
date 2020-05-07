@@ -6,7 +6,7 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-router-dom";
 import './style.css'
-
+import catMapper from './CategoryMapper';
 import axios from "axios";
 
 class UserProfile extends React.Component {
@@ -17,7 +17,9 @@ class UserProfile extends React.Component {
       username: '',
       zipcode: '',
       description: '',
-      category: '1'
+      category: '1',
+      nights: 1,
+      donationAount: 10
     };
   }
 
@@ -30,11 +32,15 @@ class UserProfile extends React.Component {
     console.log("ur", url);
     axios.get(url).then(res => {
       if (!res.data.empty) {
-        console.log("setting the state")
-        console.log(res)
-        console.log('********');
-        console.log(res.data.username);
-        this.setState({username: res.data.username, zipcode: res.data.zipcode, description: res.data.description, category: res.data.category});
+        if(res.data.length > 0){
+          var user = res.data[0]
+          this.setState({
+            username: user.username,
+            zipcode: user.zipcode,
+            description: user.description,
+            category: catMapper(user.category),
+            nights: user.nights});
+        }
       }
 
     }).catch(error => {
@@ -47,8 +53,6 @@ class UserProfile extends React.Component {
     return (<div>
       <Container className="space-evenly">
         <div class="jumbotron">
-
-
           <Card>
             <Card.Header as="h1" className="headings">
               {this.state.username}
@@ -63,11 +67,9 @@ class UserProfile extends React.Component {
               <Card.Text>
               <p> Matched Hotel: Hotel Name </p>
 
-             <p> Money needed: (Hotel price per night * nights requested) </p>
-             <p> Money Donated: (list of donors and the sum of their donations) </p>
+             <p> Money needed: ${this.state.nights * 20} </p>
+             <p> Money Donated: ${this.state.donationAount} </p>
               </Card.Text>
-
-              <Button variant="primary">Donate</Button>
             </Card.Body>
           </Card>
 

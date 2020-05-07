@@ -41,7 +41,7 @@ class DonateForm extends React.Component {
 
     const category = this.state.category === '' ? 'all' : this.state.category;
     const zip = this.state.zipCode === '' ? 'any' : this.state.zipCode;
-    const path = "/users?category=" + category + "?zip=" + zip;
+    const path = "/users?category=" + category + "&zipcode=" + zip;
     this.setState({formSubmitted: true, redirectPath: path});
   }
 

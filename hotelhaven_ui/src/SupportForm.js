@@ -223,7 +223,7 @@ class SupportForm extends React.Component {
         {this.form()}
       </div>
       <div class="lower-banner">
-        <Image src="./2.png" fluid="fluid"/>
+        <Image src="../public/Gift_A_Room.png" fluid="fluid"/>
       </div>
     </div>)
   }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import logo from '../public/hotel-logo.png';
+//import logo from '../public/Gift_A_Room.png';
 import './App.css';
 import SupportForm from './SupportForm.js'
 import DonateForm from './DonateForm.js'
@@ -61,9 +62,6 @@ class App extends Component {
 
           <div className="headings">
             <img src={logo} className="App-logo" alt="logo"/>
-            <Link to="/">
-              <h2>Hotel Haven</h2>
-            </Link>
           </div>
 
           // menu buttons.
