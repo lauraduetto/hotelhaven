@@ -20,7 +20,8 @@ class UserProfile extends React.Component {
       description: '',
       category: '1',
       nights: 1,
-      donationAount: 10
+      donationAount: 10,
+      matched: false,
     };
   }
 
@@ -48,7 +49,8 @@ class UserProfile extends React.Component {
             description: user.description,
             category: catMapper(user.category),
             nights: user.nights,
-            resultText: resultText});
+            resultText: resultText,
+            matched: values.matched});
         }
       }
 
@@ -74,7 +76,7 @@ class UserProfile extends React.Component {
                 {this.state.description}
               </Card.Text>
               <Card.Text>
-              <p> Matched Hotel: Hilton </p>
+              <p> Matched Hotel: {(this.state.matched === true) ? 'Hilton' : 'None'} </p>
 
              <p> Money needed: ${this.state.nights * 20} </p>
              <p> Money Donated: ${this.state.donationAount} </p>

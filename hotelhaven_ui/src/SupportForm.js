@@ -30,7 +30,7 @@ const hotels = [
     "name": "SF Hotel",
     "email": "hoteltest2@gmail.com",
     "password": "test1234",
-    "zipCode": "94521",
+    "zipCode": "94104",
     "numRoomsAvailable": "100",
     "pricePerRoom": "10",
     "website": "https://jsoneditoronline.org/"
@@ -193,6 +193,8 @@ class SupportForm extends React.Component {
               <option value="1">Essential Worker</option>
               <option value="2">Quarantine</option>
               <option value="3">Safe Space</option>
+              <option value="4">Student</option>
+              <option value="5">Other</option>
             </Form.Control>
           </Form.Group>
 

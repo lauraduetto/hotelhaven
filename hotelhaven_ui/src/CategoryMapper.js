@@ -8,6 +8,10 @@ const CategoryMapper = (cateogry) => {
        return "Quarantine"
     case 3:
        return "Safe Space"
+    case 4:
+      return "Student"
+    case 5:
+        return "Other"
     default:
         return "default"
   }
