@@ -19,6 +19,7 @@ class DonateForm extends React.Component {
     this.state = {
       reason: 'Any',
       donationAount: '',
+      category: '0',
       zipCode: '',
 
       // redirect setState
@@ -38,9 +39,9 @@ class DonateForm extends React.Component {
     console.log("state", this.state)
     event.preventDefault();
 
-    const reason = this.state.reason === '' ? 'all' : this.state.reason;
+    const category = this.state.category === '' ? 'all' : this.state.category;
     const zip = this.state.zipCode === '' ? 'any' : this.state.zipCode;
-    const path = "/users?reason=" + reason + "?zip=" + zip;
+    const path = "/users?category=" + category + "?zip=" + zip;
     this.setState({formSubmitted: true, redirectPath: path});
   }
 
@@ -58,11 +59,10 @@ class DonateForm extends React.Component {
           <Form.Group controlId="formBasic">
             <Form.Label>Category: Who Do You want to support</Form.Label>
 
-            <Form.Control size="lg" as="select" type="string" value={this.state.reason} name="reason" onChange={this.handleChange}>
-              <option>Any</option>
-              <option>Essential Worker</option>
-              <option>Quarantine</option>
-              <option>Safe Space</option>
+            <Form.Control size="lg" as="select" type="string" value={this.state.category} name="category" onChange={this.handleChange}>
+              <option value="1">Essential Worker</option>
+              <option value="2">Quarantine</option>
+              <option value="3">Safe Space</option>
             </Form.Control>
           </Form.Group>
 
