@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-rou
 import './style.css'
 import catMapper from './CategoryMapper';
 import axios from "axios";
+import queryString from 'query-string'
 
 class UserProfile extends React.Component {
 
@@ -27,7 +28,14 @@ class UserProfile extends React.Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log("match", this.props.match);
+    console.log(this.props.location);
+    const values = queryString.parse(this.props.location.search)
+    //let matched = this.props.location
+    var resultText = (values.matched === true) ?
+    'good news, there is a hotel willing to help nearby!' :
+    'We are sorry, no hotels found near your location. We will notify you once there is a match'
+
+
     const url = "http://localhost:5000/user/" + id;
     console.log("ur", url);
     axios.get(url).then(res => {
@@ -39,7 +47,8 @@ class UserProfile extends React.Component {
             zipcode: user.zipcode,
             description: user.description,
             category: catMapper(user.category),
-            nights: user.nights});
+            nights: user.nights,
+            resultText: resultText});
         }
       }
 
@@ -59,13 +68,13 @@ class UserProfile extends React.Component {
               <h3>{this.state.category}</h3>
             </Card.Header>
             <Card.Body>
+            <div className="resultText"> {this.state.resultText} </div>
               <Card.Title>About Me</Card.Title>
               <Card.Text>
                 {this.state.description}
               </Card.Text>
-
               <Card.Text>
-              <p> Matched Hotel: Hotel Name </p>
+              <p> Matched Hotel: Hilton </p>
 
              <p> Money needed: ${this.state.nights * 20} </p>
              <p> Money Donated: ${this.state.donationAount} </p>

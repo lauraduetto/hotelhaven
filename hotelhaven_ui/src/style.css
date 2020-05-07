@@ -30,6 +30,12 @@
   padding: 2rem;
 }
 
+.resultText {
+  text-align: center;
+  color: #0000FF
+}
+
+
 .aboutme{
   text-align: center;
   max-width: 10rem;
