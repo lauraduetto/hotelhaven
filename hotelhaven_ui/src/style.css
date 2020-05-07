@@ -59,13 +59,14 @@ p.headings {
 	width:100%;
 	margin:100px auto;
 	padding: 50px 20px 50px 20px;
-	max-width:70%;
+	max-width:90%;
 	background: rgba(255,255,255,0.8);
   background-color: rgba(255,255,255,0.8)
 }
 
 .container {
    justify-content: space-evenly;
+   width:100%;
 }
 
 .jumbotron2 {

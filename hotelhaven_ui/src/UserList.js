@@ -91,7 +91,7 @@ class UserList extends React.Component {
       console.log("item", item);
       return (<Col>
         <Card style={{
-            width: '18rem'
+            width: '20rem'
           }}>
           <Card.Header as="h3">
             {item.username}
