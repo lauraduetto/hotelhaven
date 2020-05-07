@@ -24,8 +24,6 @@ class Home extends React.Component {
               <div className="headings">
                 <h1>
                   Gift A Room</h1>
-                <h4 class="tagName">
-                  Our Tag Line Under Here</h4>
               </div>
             </div>
 
@@ -55,7 +53,7 @@ class Home extends React.Component {
             </Col>
 
           </Row>
-
+          <br />
           <p class="headings">
           Have a big heart?  Want to help people who need to find a temporary home?
           </p>
@@ -67,7 +65,7 @@ class Home extends React.Component {
             </Col>
 
           </Row>
-
+          <br />
           <p class="headings">
           My hotel is interested in helping.
           </p>
