@@ -25,7 +25,7 @@ class Home extends React.Component {
                 <h1>
                   Gift A Room</h1>
                 <h4 class="tagName">
-                  Our Tag Line Under Here</h4>
+                  Sponsored rooms for people who need them</h4>
               </div>
             </div>
 

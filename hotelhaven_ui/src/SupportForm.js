@@ -8,6 +8,7 @@ import './style.css'
 import axios from "axios";
 import qs from 'qs';
 import {BrowserRouter as Router, Redirect, Route, Link, useParams} from "react-router-dom";
+import queryString from 'query-string'
 
 function handleSubmit(event) {
   alert('A name was submitted: ' + this.state.value);
@@ -98,14 +99,16 @@ class SupportForm extends React.Component {
     axios.post("http://localhost:5000/user", body, {headers}).then(res => {
 
       // after a sucessfull save display the result of matching
+      var matched = false;
       if (hotel) {
-        alert('good news, there is a hotel willing to help nearby!');
+        //alert('good news, there is a hotel willing to help nearby!');
+        matched = true;
       } else {
-        alert('We are sorry, no hotels found near your location : ( + We will notify you once there is one');
+        //alert('We are sorry, no hotels found near your location We will notify you once there is a match');
       }
 
       // 3. set state variables to allow for redirect
-      const path = "/user/" + res.data.id;
+      const path = "/user/" + res.data.id + "?matched=" + matched;
       this.setState({formSubmitted: true, redirectPath: path});
 
     }).catch(error => {

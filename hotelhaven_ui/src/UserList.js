@@ -25,11 +25,13 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     const url = "http://localhost:5000/users/";
-    console.log("ur", url);
-    axios.get(url).then(res => {
-      console.log("************** : "+res);
+    const search = this.props.location.search;
+    const fullUrl = search ? url + search : url;
+    axios.get(fullUrl).then(res => {
       if (!res.data.empty) {
+        console.log(res.data);
         this.setState({users: res.data})
       }
 
@@ -51,6 +53,8 @@ class UserList extends React.Component {
   donateOnAccept = () => {
     // donation is saved in the state. change the user selected.
     console.log(this.state.selectedUser);
+    //var slectedUser = {...this.state.selectedUser, donation}
+    //vars updatedusers =
     this.setState({
       ...this.state,
       'show': false,

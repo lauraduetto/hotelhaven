@@ -12,6 +12,7 @@ import Home from './home.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 
+
 import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-router-dom";
 
 class App extends Component {
@@ -76,10 +77,8 @@ class App extends Component {
             <Route path="/user/register">
               <SupportForm/>
             </Route>
-            <Route path="/user/:id" render={({match}) => <UserProfile match={match}/>}/>
-            <Route path="/users/">
-              <UserList/>
-            </Route>
+            <Route path="/user/:id" render={({match, location}) => <UserProfile match={match} location={location}/>}/>
+            <Route path="/users/" render={({match, location}) => <UserList match={match} location={location}/>}/>
             <Route path="/hotel">
               <HotelForm/>
             </Route>

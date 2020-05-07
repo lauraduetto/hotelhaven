@@ -39,9 +39,12 @@ class DonateForm extends React.Component {
     console.log("state", this.state)
     event.preventDefault();
 
-    const category = this.state.category === '' ? 'all' : this.state.category;
-    const zip = this.state.zipCode === '' ? 'any' : this.state.zipCode;
-    const path = "/users?category=" + category + "&zipcode=" + zip;
+    var path = "/users"
+    if(this.state.category !== '' && this.state.zipCode !== '') {
+      const category = this.state.category;
+      const zip = this.state.zipCode;
+      path = "/users?category=" + category + "&zipcode=" + zip;
+    }
     this.setState({formSubmitted: true, redirectPath: path});
   }
 
@@ -76,7 +79,9 @@ class DonateForm extends React.Component {
   };
 
   render() {
-    const redirect = this.state.formSubmitted ? <Redirect to={this.state.redirectPath}/> : null;
+    const redirect = this.state.formSubmitted ? <Redirect to={{
+      pathname: this.state.redirectPath
+      }}/> : null;
     return (<div>
       {redirect}
       <div className="Layout">
