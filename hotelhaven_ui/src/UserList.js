@@ -25,9 +25,10 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    const url = "http://localhost:4000/users/";
+    const url = "http://localhost:5000/users/";
     console.log("ur", url);
     axios.get(url).then(res => {
+      console.log("************** : "+res);
       if (!res.data.empty) {
         this.setState({users: res.data})
       }
