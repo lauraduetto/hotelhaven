@@ -126,7 +126,7 @@ CREATE TABLE `request_category` (
 
 LOCK TABLES `request_category` WRITE;
 /*!40000 ALTER TABLE `request_category` DISABLE KEYS */;
-INSERT INTO `request_category` VALUES (1,'Health worker'),(2,'Safe house');
+INSERT INTO `request_category` VALUES (1,'Essential worker'),(2,'Quarantine'),(3,'Safe house');
 /*!40000 ALTER TABLE `request_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
